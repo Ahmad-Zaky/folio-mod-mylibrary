@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Book Schema",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "Book id",
+        "type": "string"
+      },
+      "title": {
+        "description": "Book title",
+        "type": "string"
+      },
+      "authors": {
+        "description": "Book authors",
+        "type": "object",
+        "$ref": "AuthorRequestCollection.json"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "title",
+      "authors"
+    ]
+  }

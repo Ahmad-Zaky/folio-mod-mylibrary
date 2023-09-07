@@ -3,13 +3,64 @@
   "name": "The blueprint module that could be used as a template for folio spring based backend modules.",
   "provides": [
     {
-      "id": "spring-template",
+      "id": "mylibrary",
       "version": "1.0",
-      "handlers": []
+      "handlers": [
+        {
+          "methods": ["GET"],
+          "pathPattern": "/books",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["GET"],
+          "pathPattern": "/books/{id}",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["POST"],
+          "pathPattern": "/books",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["PUT"],
+          "pathPattern": "/books/{id}",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["DELETE"],
+          "pathPattern": "/books/{id}",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["GET"],
+          "pathPattern": "/authors",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["GET"],
+          "pathPattern": "/authors/{id}",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["POST"],
+          "pathPattern": "/authors",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["PUT"],
+          "pathPattern": "/authors/{id}",
+          "permissionsRequired": []
+        },
+        {
+          "methods": ["DELETE"],
+          "pathPattern": "/authors/{id}",
+          "permissionsRequired": []
+        }
+      ]
     },
     {
       "id": "_tenant",
-      "version": "1.2",
+      "version": "2.0",
       "interfaceType": "system",
       "handlers": [
         {
@@ -37,11 +88,11 @@
       { "name": "JAVA_OPTIONS",
         "value": "-XX:MaxRAMPercentage=66.0"
       },
-      { "name": "DB_HOST", "value": "postgres" },
+      { "name": "DB_HOST", "value": "localhost" },
       { "name": "DB_PORT", "value": "5432" },
-      { "name": "DB_USERNAME", "value": "folio_admin" },
-      { "name": "DB_PASSWORD", "value": "folio_admin" },
-      { "name": "DB_DATABASE", "value": "okapi_modules" },
+      { "name": "DB_USERNAME", "value": "okapi" },
+      { "name": "DB_PASSWORD", "value": "okapi25" },
+      { "name": "DB_DATABASE", "value": "okapi" },
       { "name": "DB_QUERYTIMEOUT", "value": "60000" },
       { "name": "DB_CHARSET", "value": "UTF-8" },
       { "name": "DB_MAXPOOLSIZE", "value": "5" }

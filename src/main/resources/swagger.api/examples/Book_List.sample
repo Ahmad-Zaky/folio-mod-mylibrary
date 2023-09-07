@@ -1,0 +1,33 @@
+{
+    "books": [
+        {
+            "id": "slkjgslgj-sdgsfh-sfherhhfgh",
+            "title": "Book 1",
+            "authors": [
+                {
+                    "id": "lssgglsjd-esdjg-sdgdrhrgj",
+                    "name": "Author 1"
+                },
+                {
+                    "id": "lsjdlshre-esljg-sdgsdsrgs",
+                    "name": "Author 2"
+                }
+            ]
+        },
+        {
+            "id": "slgsdhj-ssdhgsfh-sfherhhfgh",
+            "title": "Book 2",
+            "authors": [
+                {
+                    "id": "lsjdglsjd-esljg-sdglsergj",
+                    "name": "Author 2"
+                },
+                {
+                    "id": "lsjdglsjd-esljg-sdgsdsrgs",
+                    "name": "Author 3"
+                }
+            ]
+        }
+    ],
+    "totalRecords": 2
+}

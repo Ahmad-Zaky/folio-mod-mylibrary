@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Books Collection",
+    "type": "object",
+    "properties": {
+      "books": {
+        "description": "List of books",
+        "type": "array",
+        "id": "books",
+        "items": {
+          "type": "object",
+          "$ref": "BookResource.json"
+        }
+      },
+      "totalRecords": {
+        "type": "integer"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "books",
+      "totalRecords"
+    ]
+  }
+  

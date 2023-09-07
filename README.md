@@ -1,4 +1,4 @@
-# mod-spring-template
+# mod-spring-template (my library)
 
 Copyright (C) 2022 The Open Library Foundation
 
@@ -31,11 +31,11 @@ This is the blueprint module that should be used as a template for FOLIO Spring-
 It provides the initial configuration and common data schemas used by the FOLIO platform.
 
 ## How-to guide
-This guide shows how to create a new FOLIO backend module using the mod-spring-template engine.
+This guide shows how to create a new FOLIO backend module using the mod-spring-template (my library) engine.
 
 Also follow the required [guidelines](https://dev.folio.org/guidelines/create-new-repo/) to create a new repository.
 
-1. Clone the mod-spring-template repository from the github https://github.com/folio-org/mod-spring-template
+1. Clone the mod-spring-template (my library) repository from the github https://github.com/folio-org/mod-spring-template (my library)
 2. Rename the folder containing the project following FOLIO naming conventions and delete the git related folder .git
 3. Edit the pom.xml and provide valid values for tags
   - artifactId
