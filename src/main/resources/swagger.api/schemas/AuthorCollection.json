@@ -1,0 +1,25 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Authors Collection",
+    "type": "object",
+    "properties": {
+      "authors": {
+        "description": "List of authors",
+        "type": "array",
+        "id": "authors",
+        "items": {
+          "type": "object",
+          "$ref": "AuthorResource.json"
+        }
+      },
+      "totalRecords": {
+        "type": "integer"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "authors",
+      "totalRecords"
+    ]
+  }
+  

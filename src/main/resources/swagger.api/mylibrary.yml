@@ -1,0 +1,393 @@
+openapi: 3.0.0
+info:
+  title: MyLibrary
+  version: 1.0.0
+  description: My Library Documentation which has Books and Authors
+servers:
+  - url: http://localhost:9130
+    description: Local Server
+tags:
+  - name: Books
+  - name: Authors
+
+paths: 
+  /books:
+    get:
+      operationId: getBooks
+      tags:
+        - Books
+      summary: List
+      description: List Books Information
+      parameters:
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+        - $ref: '#/components/parameters/trait_offset_query'
+        - $ref: '#/components/parameters/trait_limit_query'
+        - $ref: '#/components/parameters/trait_sort_query'
+        - $ref: '#/components/parameters/trait_cql_query'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookCollection'
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+    post:
+      operationId: createBook
+      tags:
+        - Books
+      summary: Add
+      description: Create a new book
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequestResource'
+
+      parameters:
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResource'
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+  /books/{id}:
+    get:
+      operationId: getBook
+      tags:
+        - Books
+      summary: Show
+      description: Show book information
+      parameters: 
+        - $ref: '#/components/parameters/trait_id_uuid_path'
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookResource'
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+    
+    put:
+      operationId: updateBook
+      tags:
+        - Books
+      summary: Edit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookRequestResource'
+      parameters:
+        - $ref: '#/components/parameters/trait_id_uuid_path'
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+
+      responses:
+        204:
+          description: No Content
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+    delete:
+      operationId: deleteBook
+      tags:
+        - Books
+      summary: Remove
+      parameters: 
+        - $ref: '#/components/parameters/trait_id_uuid_path'
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+
+      responses:
+        204:
+          description: No Content
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+  /authors:
+    get:
+      operationId: getAuthors
+      tags:
+        - Authors
+      summary: List
+      description: List Authors Information
+      parameters:
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+        - $ref: '#/components/parameters/trait_offset_query'
+        - $ref: '#/components/parameters/trait_limit_query'
+        - $ref: '#/components/parameters/trait_sort_query'
+        - $ref: '#/components/parameters/trait_cql_query'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorCollection'
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+    post:
+      operationId: createAuthor
+      tags:
+        - Authors
+      summary: Add
+      description: Create a new author
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorResource'
+
+      parameters:
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorResource'
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+  /authors/{id}:
+    get:
+      operationId: getAuthor
+      tags:
+        - Authors
+      summary: Show
+      description: Show author information
+      parameters: 
+        - $ref: '#/components/parameters/trait_id_uuid_path'
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthorResource'
+
+    put:
+      operationId: updateAuthor
+      tags:
+        - Authors
+      summary: Edit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorResource'
+      parameters:
+        - $ref: '#/components/parameters/trait_id_uuid_path'
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+      responses:
+        204:
+          description: No Content
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+
+    delete:
+      operationId: deleteAuthor
+      tags:
+        - Authors
+      summary: Remove
+      parameters: 
+        - $ref: '#/components/parameters/trait_id_uuid_path'
+        - $ref: '#/components/parameters/trait_okai_url_header'
+        - $ref: '#/components/parameters/trait_okai_tenant_header'
+        - $ref: '#/components/parameters/trait_okai_token_header'
+        - $ref: '#/components/parameters/trait_okai_module_id_header'
+      responses:
+        204:
+          description: No Content
+        500:
+          description: Error encountered while processing request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusCode_500_Schema'
+      
+
+components:
+  parameters:
+    trait_id_uuid_path:
+      name: id
+      in: path
+      required: true
+      description: UUID
+      schema:
+        type: string
+      example: lsjgssdgd-gsgsdgsh-shshfdhdfes
+    trait_okai_url_header:
+      name: X-Okapi-Url
+      in: header
+      schema:
+        type: string
+      example: localhost:9130
+
+    trait_okai_tenant_header:
+      name: X-Okapi-Tenant
+      in: header
+      schema:
+        type: string
+      example: testlib1
+          
+    trait_okai_token_header:
+      name: X-Okapi-Token
+      in: header
+      schema:
+        type: string
+      example: >-
+        eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0aW5nX2FkbWluIiwidHlwZSI6ImxlZ2FjeS1hY2Nlc3MiLCJ1c2VyX2lkIjoiMTQzZDkyMjUtOTlhOS00YTFmLWE4NjQtODVmMGQyMzc4NzQxIiwiaWF0IjoxNjkzNDM0MDcwLCJ0ZW5hbnQiOiJ0ZXN0bGliMSJ9.1en2uxm1Ex4CRK0Uvv030TaQY-az3U-foWMqo6MztlE
+    
+    trait_okai_module_id_header:
+      name: X-Okapi-Module-Id
+      in: header
+      schema:
+        type: string
+      example: mylibrary-1.0.0
+
+    trait_offset_query:
+      name: offset
+      in: query
+      schema:
+        type: integer
+      example: '0'
+
+    trait_limit_query:
+      name: limit
+      in: query
+      schema:
+        type: integer
+      example: '10'
+
+    trait_sort_query:
+      name: sort
+      in: query
+      schema:
+        type: string
+      example: createdDate
+
+    trait_cql_query:
+      name: cql
+      in: query
+      schema:
+        type: string
+      example: "dc.title any fish"
+
+  schemas:
+    
+    BookCollection:
+      $ref: schemas/BookCollection.json
+
+    BookResource:
+      $ref: schemas/BookResource.json
+
+    BookRequestResource:
+      $ref: schemas/BookRequestResource.json
+    
+    AuthorCollection:
+      $ref: schemas/AuthorCollection.json
+    
+    AuthorRequestCollection:
+      $ref: schemas/AuthorRequestCollection.json
+
+    AuthorResource:
+      $ref: schemas/AuthorResource.json
+
+    StatusCode_500_Schema:
+      type: string
+      example: Internal server error
+
+    error:
+      $ref: schemas/error.json
+
+    errors:
+      $ref: schemas/errors.json
+
+  responses:
+    422Response:
+      description: Validation errors
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/errors"

@@ -1,0 +1,13 @@
+{
+    "authors": [
+        {
+            "id": "slkjgslgj-sdgsfh-sfherhhfgh",
+            "title": "Author 1"
+        },
+        {
+            "id": "slgsdhj-ssdhgsfh-sfherhhfgh",
+            "name": "Author 2",
+        }
+    ],
+    "totalRecords": 2
+}

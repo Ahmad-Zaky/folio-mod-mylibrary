@@ -1,0 +1,21 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "Author Schema",
+    "type": "object",
+    "properties": {
+      "id": {
+        "description": "Author id",
+        "type": "string"
+      },
+      "name": {
+        "description": "Author name",
+        "type": "string"
+      }
+    },
+    "additionalProperties": false,
+    "required": [
+      "id",
+      "name"
+    ]
+  }
+  

@@ -1,0 +1,38 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                    http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="MOMYLIBRARY@@create-new-author-book-table" author="ahmed">
+        <createTable tableName="author_book">
+            <column name="author_id" type="uuid">
+                <constraints nullable="false" />
+            </column>
+
+            <column name="book_id" type="uuid">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+
+        <addForeignKeyConstraint
+            baseColumnNames="author_id"  
+            baseTableName="author_book"  
+            constraintName="fk_author"  
+            onDelete="CASCADE"  
+            referencedColumnNames="id"  
+            referencedTableName="author"
+        />  
+
+        <addForeignKeyConstraint
+            baseColumnNames="book_id"  
+            baseTableName="author_book"  
+            constraintName="fk_book"  
+            onDelete="CASCADE"
+            referencedColumnNames="id"  
+            referencedTableName="book"
+        />  
+
+    </changeSet>
+
+</databaseChangeLog>
