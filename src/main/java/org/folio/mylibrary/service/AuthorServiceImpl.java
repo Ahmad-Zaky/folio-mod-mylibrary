@@ -2,11 +2,13 @@ package org.folio.mylibrary.service;
 
 import static org.folio.mylibrary.domain.dto.ErrorMessages.AUTHOR_WITH_ID_IS_NOT_FOUND;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import org.folio.spring.FolioExecutionContext;
 import org.folio.mylibrary.domain.dto.AuthorCollection;
 import org.folio.mylibrary.domain.dto.AuthorResource;
 import org.folio.mylibrary.domain.entity.Author;
@@ -30,6 +32,7 @@ import lombok.extern.log4j.Log4j2;
 @AllArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
+    private final FolioExecutionContext folioExecutionContext;
 
     @Override
     public AuthorCollection getAuthors(Integer offset, Integer limit, String sort, String cql) {
@@ -53,6 +56,8 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorResource createAuthor(AuthorResource authorResource) {
         var author = AuthorMapper.mapDtoToEntity(authorResource);
 
+        author.setCreatedByUserId(folioExecutionContext.getUserId());
+
         return AuthorMapper.mapEntityToDto(authorRepository.save(author));
     }
 
@@ -65,15 +70,17 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void updateAuthor(String id, AuthorResource authorResource) {
-         UUID uuid = StringUtil.toUuidSafe(id);
-        if (! authorRepository.existsById(uuid)) {
-            throw new RecordNotFoundException(String.format(AUTHOR_WITH_ID_IS_NOT_FOUND, id));
-        }
+        UUID uuid = StringUtil.toUuidSafe(id);
+        Optional<Author> optionalAuthor = authorRepository.findById(uuid);        
+        Author auther = optionalAuthor.orElseThrow(() -> new RecordNotFoundException(String.format(AUTHOR_WITH_ID_IS_NOT_FOUND, id)));
         
         Author updatedAuthor = AuthorMapper.mapDtoToEntity(authorResource);
-        updatedAuthor.setId(uuid);
 
-        authorRepository.save(updatedAuthor);
+        auther.setId(uuid);
+        auther.merge(updatedAuthor);
+        auther.setUpdatedByUserId(folioExecutionContext.getUserId());
+
+        authorRepository.save(auther);
     }
 
     @Override

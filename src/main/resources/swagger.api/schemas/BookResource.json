@@ -13,8 +13,12 @@
     },
     "authors": {
       "description": "Book authors",
+      "$ref": "AuthorArray.json"
+    },
+    "metadata": {
+      "description": "Entity metadata",
       "type": "object",
-      "$ref": "AuthorCollection.json"
+      "$ref": "metadata.json"
     }
   },
   "additionalProperties": false,

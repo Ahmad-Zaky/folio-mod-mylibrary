@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.folio.mylibrary.domain.dto.AuthorCollection;
+import org.folio.mylibrary.domain.dto.Metadata;
 import org.folio.mylibrary.domain.dto.AuthorResource;
 import org.folio.mylibrary.domain.dto.BookCollection;
 import org.folio.mylibrary.domain.dto.BookRequestResource;
@@ -25,23 +25,26 @@ import lombok.AllArgsConstructor;
 public class BookMapper {
 
     public static BookResource mapEntityToDto(Book book) {
-        AuthorCollection authors = new AuthorCollection()
-            .authors(
-                book.getAuthors()
-                    .stream()
-                    .map(AuthorMapper::mapEntityToDto)
-                    .collect(Collectors.toList())
-            );
+        List<AuthorResource> authors = book.getAuthors()
+            .stream()
+            .map(AuthorMapper::mapEntityToDto)
+            .collect(Collectors.toList());
 
         return new BookResource()
             .id(StringUtil.uuidToStringSafe(book.getId()))
             .title(book.getTitle())
-            .authors(authors);
+            .authors(authors)
+            .metadata(
+                new Metadata()
+                .createdDate(book.getCreatedDate())
+                .updatedDate(book.getUpdatedDate())
+                .createdByUserId(StringUtil.uuidToStringSafe(book.getCreatedByUserId()))
+                .updatedByUserId(StringUtil.uuidToStringSafe(book.getUpdatedByUserId()))
+            );
     }
 
     public static Book mapDtoToEntity(BookResource bookResource) {
         List<Author> authors = bookResource
-            .getAuthors()
             .getAuthors()
             .stream()
             .map(AuthorMapper::mapDtoToEntity)

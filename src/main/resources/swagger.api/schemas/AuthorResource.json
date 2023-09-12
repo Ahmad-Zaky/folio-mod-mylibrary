@@ -10,6 +10,11 @@
       "name": {
         "description": "Author name",
         "type": "string"
+      },
+      "metadata": {
+        "description": "Entity metadata",
+        "type": "object",
+        "$ref": "metadata.json"
       }
     },
     "additionalProperties": false,
@@ -18,4 +23,5 @@
       "name"
     ]
   }
+  
   

@@ -13,10 +13,6 @@
       "type": "string",
       "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
     },
-    "createdByUsername": {
-      "description": "Username of the user who created the record (when available)",
-      "type": "string"
-    },
     "updatedDate": {
       "description": "Date and time when the record was last updated",
       "type": "string",
@@ -26,10 +22,6 @@
       "description": "ID of the user who last updated the record (when available)",
       "type": "string",
       "pattern": "^[a-fA-F0-9]{8}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{4}-[a-fA-F0-9]{12}$"
-    },
-    "updatedByUsername": {
-      "description": "Username of the user who last updated the record (when available)",
-      "type": "string"
     }
   },
   "additionalProperties": false,

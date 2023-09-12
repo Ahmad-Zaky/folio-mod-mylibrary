@@ -3,11 +3,13 @@ package org.folio.mylibrary.service;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static org.apache.commons.lang3.StringUtils.isBlank;
 
+import org.folio.spring.FolioExecutionContext;
 import org.folio.mylibrary.domain.dto.BookCollection;
 import org.folio.mylibrary.domain.dto.BookRequestResource;
 import org.folio.mylibrary.domain.dto.BookResource;
@@ -17,6 +19,7 @@ import static org.folio.mylibrary.domain.dto.ErrorMessages.AUTHOR_WITH_ID_IS_NOT
 import org.folio.mylibrary.domain.entity.Author;
 import org.folio.mylibrary.domain.entity.Book;
 import org.folio.mylibrary.exceptionn.RecordNotFoundException;
+import org.folio.mylibrary.mapper.AuthorMapper;
 import org.folio.mylibrary.mapper.BookMapper;
 import org.folio.mylibrary.repository.AuthorRepository;
 import org.folio.mylibrary.repository.BookRepository;
@@ -41,6 +44,7 @@ public class BookServiceImpl implements BookService {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final FolioExecutionContext folioExecutionContext;
 
     @Override
     public BookCollection getBooks(Integer offset, Integer limit, String sort, String cql) {
@@ -74,6 +78,8 @@ public class BookServiceImpl implements BookService {
             .collect(Collectors.toList());
         
         book.addAuthors(authors);
+        
+        book.setCreatedByUserId(folioExecutionContext.getUserId());
 
         return BookMapper.mapEntityToDto(bookRepository.save(book));
     }
@@ -88,12 +94,8 @@ public class BookServiceImpl implements BookService {
     @Override
     public void updateBook(String id, BookRequestResource bookRequestResource) {
         UUID uuid = StringUtil.toUuidSafe(id);
-        if (! bookRepository.existsById(uuid)) {
-            throw new RecordNotFoundException(String.format(BOOK_WITH_ID_IS_NOT_FOUND, id));
-        }
-        
-        Book updatedBook = BookMapper.mapRequestDtoToEntity(bookRequestResource);
-        updatedBook.setId(uuid);
+        Optional<Book> optionalBook = bookRepository.findById(uuid);        
+        Book book = optionalBook.orElseThrow(() -> new RecordNotFoundException(String.format(BOOK_WITH_ID_IS_NOT_FOUND, id)));
 
         List<Author> authors = new ArrayList<>(new LinkedHashSet<>(bookRequestResource.getAuthors()))
             .stream()
@@ -104,9 +106,14 @@ public class BookServiceImpl implements BookService {
             )
             .collect(Collectors.toList());
         
+        Book updatedBook = BookMapper.mapRequestDtoToEntity(bookRequestResource);
         updatedBook.addAuthors(authors);
+        
+        book.setId(uuid);
+        book.merge(updatedBook);
+        book.setUpdatedByUserId(folioExecutionContext.getUserId());
 
-        bookRepository.save(updatedBook);
+        bookRepository.save(book);
     }
 
     @Override

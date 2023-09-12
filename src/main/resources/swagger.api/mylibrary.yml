@@ -368,6 +368,9 @@ components:
     AuthorCollection:
       $ref: schemas/AuthorCollection.json
     
+    AuthorArray:
+      $ref: schemas/AuthorArray.json
+    
     AuthorRequestCollection:
       $ref: schemas/AuthorRequestCollection.json
 

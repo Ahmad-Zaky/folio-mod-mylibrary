@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedAttributeNode;
+import javax.persistence.NamedEntityGraph;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -30,6 +32,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "book")
+@NamedEntityGraph(
+    name = "book-authors-graph",
+    attributeNodes = @NamedAttributeNode(value = "authors")
+)
 public class Book {
     @Id
     @GeneratedValue
@@ -54,8 +60,8 @@ public class Book {
     private UUID updatedByUserId;
   
     @ManyToMany(
-        cascade = CascadeType.ALL,
-        fetch = FetchType.EAGER
+        cascade = CascadeType.DETACH,
+        fetch = FetchType.LAZY
     )
     @JoinTable(
         name = "author_book",
@@ -78,6 +84,10 @@ public class Book {
 
     public void merge(Book another) {
         title = another.getTitle();
+        
+        // initialize authors before adding new authors
+        setAuthors(new ArrayList<>());
+
         addAuthors(another.getAuthors());
     }
 }

@@ -1,0 +1,10 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "description": "List of authors",
+    "type": "array",
+    "id": "authors",
+    "items": {
+        "type": "object",
+        "$ref": "AuthorResource.json"
+    }
+}

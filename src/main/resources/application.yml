@@ -31,7 +31,6 @@ spring:
     change-log: classpath:db/changelog/changelog-master.xml
     enabled: true
   jackson:
-    default-property-inclusion: non_empty
     deserialization:
       fail-on-unknown-properties: false
       accept-single-value-as-array: true

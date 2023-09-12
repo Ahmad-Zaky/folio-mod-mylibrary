@@ -2,6 +2,7 @@ package org.folio.mylibrary.mapper;
 
 import java.util.UUID;
 
+import org.folio.mylibrary.domain.dto.Metadata;
 import org.folio.mylibrary.domain.dto.AuthorResource;
 import org.folio.mylibrary.domain.entity.Author;
 import org.folio.mylibrary.exceptionn.RecordNotFoundException;
@@ -15,7 +16,14 @@ public class AuthorMapper {
     public static AuthorResource mapEntityToDto(Author author) {
         return new AuthorResource()
             .id(StringUtil.uuidToStringSafe(author.getId()))
-            .name(author.getName());
+            .name(author.getName())
+            .metadata(
+                new Metadata()
+                .createdDate(author.getCreatedDate())
+                .updatedDate(author.getUpdatedDate())
+                .createdByUserId(StringUtil.uuidToStringSafe(author.getCreatedByUserId()))
+                .updatedByUserId(StringUtil.uuidToStringSafe(author.getUpdatedByUserId()))
+            );
     }
 
     public static Author mapDtoToEntity(AuthorResource authorResource) {
